@@ -57,16 +57,46 @@
     }
 
     .hand {
+      transform-origin: 100%;
       width:50%;
       height:6px;
       background:black;
       position: absolute;
       top:50%;
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+
+    }
+
+    .second-hand{
+      height: 3px;
+      background: red;
     }
 
   </style>
 
   <script>
+  const hoursHand = document.querySelector('.hour-hand');
+  const minutesHand = document.querySelector('.min-hand');
+  const secondsHand = document.querySelector('.second-hand');
+  function setClock(){
+    const date = new Date();
+    const min = date.getMinutes();
+    const hours = date.getHours();
+    const seconds = date.getSeconds();
+    // console.log(seconds);
+    let hourH = (90+(hours%12)*30)%360 + (min/60)*30;
+    let minH = (90+min*6)%360 + seconds/60*6;
+    let secH = (90+seconds*6)%360
+    hoursHand.style['transform'] = `rotate(${hourH}deg)`
+    minutesHand.style['transform'] = `rotate(${minH}deg)`
+    secondsHand.style['transform'] = `rotate(${secH}deg)`
+  }
+  setInterval(setClock,500);
+  setClock();
+
+
+
 
 
   </script>
