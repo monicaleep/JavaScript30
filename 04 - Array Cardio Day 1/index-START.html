@@ -31,29 +31,62 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const less = inventors.filter(item => item.year < 1600 && item.year>1499)
+    console.table(less);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const names = inventors.map(i =>  i.first +" "+ i.last)
+    console.log(names);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const dates = inventors.sort((a,b) => a.year - b.year)
+    console.table(dates);
+
+    //other option
+    // const sorted2 = inventors.sort((a,b)=> a.year > b.year ? 1 : -1);
+    // console.table(sorted2);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const years = inventors.reduce((accum,curVal) => {
+      return accum + curVal.passed - curVal.year;
+    },0)
+    console.log(years)
 
     // 5. Sort the inventors by years lived
+    const sorted = inventors.sort((a,b)=>(a.passed - a.year) - (b.passed - b.year));
+    console.table(sorted);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // const items = Array.from(document.querySelectorAll('.mw-category-group ul li'));
+    // const result = items.map(items => items.textContent).filter(a => a.includes('de'));
+
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((lastOne, nextOne) => {
+      return lastOne > nextOne ? 1 : -1;
+    });
+    console.log(alpha);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    // thanks to MDN for this one
+    const instances = data.reduce(function(counter,each){
+      if (each in counter){
+        counter[each]++
+      }
+      else{
+        counter[each] = 1
+      }
+      return counter;
+    },{});
+    console.log(instances)
   </script>
 </body>
 </html>

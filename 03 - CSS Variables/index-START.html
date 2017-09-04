@@ -9,7 +9,7 @@
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="20" data-sizing="px">
 
     <label for="blur">Blur:</label>
     <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
@@ -21,11 +21,27 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+  /*
+    styles to be used with JS variables
+  */
+    :root{
+      --base: #ffc600;
+      --blur: 10px;
+      --spacing: 20px;
+    }
+
+    img{
+      background-color: var(--base);
+      padding: var(--spacing);
+      filter: blur(var(--blur))
+    }
+    h2 span{
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
     */
-
     body {
       text-align: center;
       background: #193549;
@@ -34,17 +50,39 @@
       font-weight: 100;
       font-size: 50px;
     }
-
     .controls {
       margin-bottom: 50px;
     }
-
     input {
       width:100px;
     }
   </style>
 
   <script>
+  // my solution, a bit messy and color doesn't work properly
+  // const spaceElem = document.getElementById('spacing');
+  // const blurElem = document.getElementById('blur');
+  // const colorElem = document.getElementById('base');
+  // spaceElem.addEventListener('mouseup',function(){
+  //   document.body.style.setProperty("--spacing",this.value + "px");
+  // })
+  // blurElem.addEventListener('mouseup',function(){
+  //   document.body.style.setProperty("--blur",this.value + "px");
+  // })
+  // colorElem.addEventListener('mouseup',function(){
+  //   document.body.style.setProperty("--base",this.value);
+  // })
+
+
+const inputs = document.querySelectorAll('.controls input');
+function handleUpdates(){
+  const suffix = this.dataset.sizing || "";
+  document.documentElement.style.setProperty("--"+this.name + this.suffix, this.value);
+}
+inputs.forEach(input => input.addEventListener('change', handleUpdates))
+inputs.forEach(input => input.addEventListener('mousemove', handleUpdates))
+
+
   </script>
 
 </body>
