@@ -182,6 +182,17 @@
     </li>
   </ul>
 <script>
+const videos = Array.from(document.querySelectorAll("li"));
+
+//return the sum of times in minutes
+const sum = videos.reduce((sum, video)=>{
+  const [min,sec] = video.dataset.time.split(":").map(parseFloat);
+  return sum + (min) + (sec)/60;
+},0);
+const seconds = Math.round(sum%1 *60);
+const hours = (sum - sum%60)/60;
+const minutes = (sum - hours*60-sum%1)
+console.log([hours,minutes,seconds].join(":"))
 </script>
 </body>
 </html>

@@ -99,6 +99,37 @@
   </div>
 
 <script>
+
+const boxi = Array.from(document.querySelectorAll('input'));
+let started= false;
+let firstBoxIndex, secondBoxIndex;
+
+function checkItems(a,b){
+  if (a>b){
+    let hold = b;
+    b = a;
+    a= hold;
+  }
+  for (let x = a; x < b; x++){
+    boxi[x].checked = true;
+  }
+}
+
+boxi.forEach(item => item.addEventListener('click',function(e){
+  if (e.shiftKey && this.checked){
+    if (!started){
+      firstBoxIndex = boxi.indexOf(this);
+      started = true;
+    }
+    else{
+      secondBoxIndex = boxi.indexOf(this);
+      checkItems(firstBoxIndex,secondBoxIndex)
+      started = false;
+    }
+  }
+}))
+
+
 </script>
 </body>
 </html>
